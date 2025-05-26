@@ -1,10 +1,10 @@
 number1 = 10
 number2 = 5
 
-addition = number1 + number2
-multiplication = number1 * number2
-subtraction = number1 - number2
+plus = number1 + number2
+times = number1 * number2
+minus = number1 - number2
 
-print("addition of", number1, "and", number2, "is", addition)
-print("multiplication", number1, "and", number2, "is", multiplication)
-print("subtraction", number1, "and", number2, "is", subtraction)
+print("addition of", number1, "and", number2, "is", plus)
+print("multiplication", number1, "and", number2, "is", times)
+print("subtraction", number1, "and", number2, "is", minus)
