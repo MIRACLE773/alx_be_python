@@ -8,13 +8,15 @@ match priority:
     case "medium":
         reminder = f"Reminder: '{task}' is a medium priority task"
     case "low":
-        reminder = f"Note: '{task}' is a low priority task. Consider completing it when you have free time."
+        reminder = f"Reminder: '{task}' is a low priority task"
     case _:
-        reminder = f"'{task}' has an unspecified priority."
+        reminder = f"Reminder: '{task}' has an unspecified priority"
 
 if time_bound == "yes" and priority in ["high", "medium"]:
     reminder += " that requires immediate attention today!"
-elif priority in ["high", "medium"]:
+elif priority == "low":
+    reminder += ". Consider completing it when you have free time."
+else:
     reminder += "."
 
 print(reminder)
