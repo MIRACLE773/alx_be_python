@@ -12,11 +12,11 @@ match priority:
     case _:
         reminder = f"'{task}' has an unspecified priority."
 
-if time_bound == "yes":
-    if priority in ["high", "medium"]:
-        reminder += " that requires immediate attention today!"
+if time_bound == "yes" and priority in ["high", "medium"]:
+    reminder += " that requires immediate attention today!"
 elif priority in ["high", "medium"]:
     reminder += "."
 
 print(reminder)
+
 
