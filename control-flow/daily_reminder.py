@@ -1,24 +1,23 @@
-task = input("Enter your task: ")
-priority = input("Priority (high/medium/low): ")
-time_bound = input("Is it time-bound? (yes/no): ")
+# Global balance
+balance = 0
 
-match priority:
-    case "high":
-        reminder = f"'{task}' is a high priority task"
-    case "medium":
-        reminder = f"'{task}' is a medium priority task"
-    case "low":
-        reminder = f"'{task}' is a low priority task"
-    case _:
-        reminder = f"'{task}' has an unspecified priority"
+def deposit(amount):
+    global balance
+    balance += amount
+    print(f"Deposited: ₦{amount}")
 
-if time_bound == "yes" and priority in ["high", "medium"]:
-    reminder += " that requires immediate attention today!"
-elif priority == "low" and time_bound == "no":
-    print(f"Note: {reminder}. Consider completing it when you have free time.")
-    exit()
+def withdraw(amount):
+    global balance
+    if amount <= balance:
+        balance -= amount
+        print(f"Withdrew: ₦{amount}")
+    else:
+        print("Insufficient funds.")
 
-print(f"Reminder: {reminder}")
+def check_balance():
+    print(f"Current balance: ₦{balance}")
 
-
-
+# Example usage
+deposit(5000)
+withdraw(2000)
+check_balance()
