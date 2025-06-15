@@ -1,45 +1,25 @@
-def display_menu():
-    print("Shopping List Manager")
-    print("1. Add Item")
-    print("2. Remove Item")
-    print("3. View List")
-    print("4. Exit")
+product = {
+    "pizza": 8,
+    "yam": 90,
+    "salt": 8
+}
 
-def main():
-    shopping_list = []
-    while True:
-        display_menu()
-        choice = input("Enter your choice: ")
+try:
+    name = input("what do you want to order: ")
+    qnt = int(input("how many quantity do ypu want to order: "))
+    
+    if product[name] <= qnt:
+        raise valuError(f"{name} is not enough")
+    
+except KeyError:
+    print("sorry there was an error")
+except ValueError as ve:
+    print(ve)
+else:
+    print(f"you bought {qnt} {name}")
+finally:
+    print("thanks for petronizing with us see you soon")
+        
 
-        if choice == '1':
-            item = input("Enter the item to add: ")
-            shopping_list.append(item)
-            print(f"'{item}' added to the list.")
-
-        elif choice == '2':
-            item = input("Enter the item to remove: ")
-            if item in shopping_list:
-                shopping_list.remove(item)
-                print(f"'{item}' removed from the list.")
-            else:
-                print(f"'{item}' not found in the list.")
-
-        elif choice == '3':
-            if shopping_list:
-                print("Your shopping list:")
-                for i, item in enumerate(shopping_list, 1):
-                    print(f"{i}. {item}")
-            else:
-                print("Your shopping list is empty.")
-
-        elif choice == '4':
-            print("Goodbye!")
-            break
-
-        else:
-            print("Invalid choice. Please try again.")
-
-if __name__ == "__main__":
-    main()
 
 
