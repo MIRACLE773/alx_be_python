@@ -1,0 +1,70 @@
+import mysql.connector
+
+# Connect to the MySQL server and library_db database
+mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="MJMUSIC",  # Replace with your password
+    database="library_db"
+)
+mycursor = mydb.cursor()
+
+# Create the books table
+mycursor.execute("""
+CREATE TABLE IF NOT EXISTS books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    author VARCHAR(255),
+    ISBN VARCHAR(255)
+)
+""")
+print("📘 'books' table is ready!")
+
+# Function to add a new book
+def add_book(title, author, isbn):
+    sql = "INSERT INTO books (title, author, ISBN) VALUES (%s, %s, %s)"
+    values = (title, author, isbn)
+    mycursor.execute(sql, values)
+    mydb.commit()
+    print("✅ Book added successfully!")
+
+# Function to search books by title
+def search_books(title):
+    sql = "SELECT * FROM books WHERE title LIKE %s"
+    mycursor.execute(sql, ("%" + title + "%",))
+    results = mycursor.fetchall()
+    if results:
+        print("🔍 Search Results:")
+        for book in results:
+            print(f"📗 ID: {book[0]}, Title: {book[1]}, Author: {book[2]}, ISBN: {book[3]}")
+    else:
+        print("❌ No books found with that title.")
+
+# Function to list all books
+def list_books():
+    mycursor.execute("SELECT * FROM books")
+    results = mycursor.fetchall()
+    print("\n📚 All Books:")
+    for book in results:
+        print(f"📘 ID: {book[0]}, Title: {book[1]}, Author: {book[2]}, ISBN: {book[3]}")
+
+# Bonus: Delete a book by ID
+def delete_book(book_id):
+    sql = "DELETE FROM books WHERE id = %s"
+    mycursor.execute(sql, (book_id,))
+    mydb.commit()
+    print("🗑️ Book deleted if ID existed.")
+
+# ========== Test the functions ==========
+add_book("Python Programming", "John Smith", "9781234567890")
+add_book("Flask Web Dev", "Jane Doe", "9789876543210")
+
+search_books("Python")
+list_books()
+delete_book(1)  # Try deleting book with ID 1
+list_books()
+
+# ========== Clean up ==========
+mycursor.close()
+mydb.close()
+print("\n✅ Connection closed.")
